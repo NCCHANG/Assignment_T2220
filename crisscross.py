@@ -1,7 +1,8 @@
 import random
 def gridnNum():
     for row in range(6):
-        print("--------")
+        print("------" * 6,end = "")
+        print("-")
         for column in range(6):
             print("|",end = "")
             x = random.randint(-30,31)
