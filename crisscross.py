@@ -1,11 +1,12 @@
 import random
 def gridnNum():
-    for row in range(6):
-        print("------" * 6,end = "")
+    size = int(input('Enter Grid Size: '))
+    for row in range(size):
+        print("------" * size,end = "")
         print("-")
-        for column in range(6):
+        for column in range(size):
             print("|",end = "")
-            x = random.randint(-30,31)
+            x = random.randint(-30,30)
             if x >= 0 and x < 10:
                 print(f"  {x}  ",end = "")
             elif x >= 10:
@@ -14,6 +15,8 @@ def gridnNum():
                 print(f" {x}  ", end = '')
             else:
                 print(f" {x} ",end = '')
-            if column == 5 :
-                print("|")    
+            if column == size-1 :
+                print("|")
+    print("------" * size,end = "")
+    print("-")    
 gridnNum()
