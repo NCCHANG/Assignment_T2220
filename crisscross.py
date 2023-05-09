@@ -3,7 +3,7 @@ def gridnNum():
     randomNum = []
     size = int(input('Enter Grid Size: '))
     i = 0
-    while len(randomNum) != size * size: #append all random number
+    while len(randomNum) != size * size: #append all random number can create a func ~hx~ then return randomnum :)
         x = random.randint(-30,30)
         randomNum.append(x)
     for row in range(size):
