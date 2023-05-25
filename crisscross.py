@@ -1,10 +1,30 @@
+#to Do List
+#make error for all input
+
 import random
 import sys
 
-RANDOMNUM = []
-GRIDSIZE = int(input('Enter Grid Size: '))
-player1 = 0
-player2 = 0
+def main():
+
+    def removeRandom():
+        nonlocal player1
+        randomNum = random.randint(0,len(RANDOMNUM)-1)
+        x = RANDOMNUM[randomNum]
+        player1 += x
+        RANDOMNUM[randomNum] = 'x'
+
+    RANDOMNUM = []
+    GRIDSIZE = int(input('Enter Grid Size: '))
+    player1 = 0
+    player2 = 0
+    generateRandomNum(RANDOMNUM,GRIDSIZE)
+    layout(RANDOMNUM,GRIDSIZE)
+    printScore(GRIDSIZE,player1,player2)
+    askGameStart()
+    removeRandom()
+    layout(RANDOMNUM,GRIDSIZE)
+    printScore(GRIDSIZE,player1,player2)
+
 
 def generateRandomNum(randomNum,size):
     while len(randomNum) != size * size: #append all random number can create a func ~hx~ then return randomnum :)
@@ -34,29 +54,20 @@ def layout(randomNum,size):
     print("-")
 
 def askGameStart():
-    start = input('Start?(Y/N)')
-    if start == 'N' :
-        sys.exit()
-def printScore(size):
+    while True:
+        start = input('Start?(Y/N): ')
+        if start == 'N' or start == 'n':
+            sys.exit()
+        elif start == 'Y' or start == 'y':
+            break
+        else:
+            print("Invalid!")
+
+def printScore(size,p1,p2):
     center = (size * 5) + (size + 1)
     centerter = center // 2
     player = (centerter - 12) / 2
     space = ' ' * int(player)
-    print(space+f'Player 1 :{player1}'+space+space+f'Player 2 :{player2}')
+    print(space+f'Player 1 : {p1}'+space+space+f'Player 2 : {p2}')
 
-
-def removeRandom():
-    global player1
-    randomNum = random.randint(0,len(RANDOMNUM)-1)
-    x = RANDOMNUM[randomNum]
-    player1 += x
-    RANDOMNUM[randomNum] = 'x'
-
-
-generateRandomNum(RANDOMNUM,GRIDSIZE)
-layout(RANDOMNUM,GRIDSIZE)
-printScore(GRIDSIZE)
-askGameStart()
-removeRandom()
-layout(RANDOMNUM,GRIDSIZE)
-printScore(GRIDSIZE)
+main()
