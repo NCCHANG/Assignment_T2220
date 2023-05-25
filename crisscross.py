@@ -17,6 +17,7 @@ def main():
     GRIDSIZE = int(input('Enter Grid Size: '))
     player1 = 0
     player2 = 0
+    temp = 0
     generateRandomNum(RANDOMNUM,GRIDSIZE)
     layout(RANDOMNUM,GRIDSIZE)
     printScore(GRIDSIZE,player1,player2)
