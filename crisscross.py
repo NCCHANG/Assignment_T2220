@@ -1,17 +1,25 @@
 import random
-def gridnNum():
-    randomNum = []
-    size = int(input('Enter Grid Size: '))
-    i = 0
+import sys
+
+RANDOMNUM = []
+GRIDSIZE = int(input('Enter Grid Size: '))
+player1 = 0
+player2 = 0
+
+def generateRandomNum(randomNum,size):
     while len(randomNum) != size * size: #append all random number can create a func ~hx~ then return randomnum :)
         x = random.randint(-30,30)
         randomNum.append(x)
+    
+
+def layout(randomNum,size):
+    i = 0
     for row in range(size):
         print("------" * size,end = "")
         print("-")
         for column in range(size):
             print("|",end = "")
-            if randomNum[i] >= 0 and randomNum[i] < 10:
+            if randomNum[i] == 'x' or randomNum[i] >= 0 and randomNum[i] < 10:
                 print(f"  {randomNum[i]}  ",end = "")
             elif randomNum[i] >= 10:
                 print(f" {randomNum[i]}  ",end= '')
@@ -23,5 +31,32 @@ def gridnNum():
             if column == size-1 :
                 print("|")
     print("------" * size,end = "")
-    print("-")    
-gridnNum()
+    print("-")
+
+def askGameStart():
+    start = input('Start?(Y/N)')
+    if start == 'N' :
+        sys.exit()
+def printScore(size):
+    center = (size * 5) + (size + 1)
+    centerter = center // 2
+    player = (centerter - 12) / 2
+    space = ' ' * int(player)
+    print(space+f'Player 1 :{player1}'+space+space+f'Player 2 :{player2}')
+
+
+def removeRandom():
+    global player1
+    randomNum = random.randint(0,len(RANDOMNUM)-1)
+    x = RANDOMNUM[randomNum]
+    player1 += x
+    RANDOMNUM[randomNum] = 'x'
+
+
+generateRandomNum(RANDOMNUM,GRIDSIZE)
+layout(RANDOMNUM,GRIDSIZE)
+printScore(GRIDSIZE)
+askGameStart()
+removeRandom()
+layout(RANDOMNUM,GRIDSIZE)
+printScore(GRIDSIZE)
