@@ -3,7 +3,6 @@
 
 import random
 import sys
-temp = ['x','x','x',3,4,5,6,7,8]
 
 def main():
 
@@ -27,15 +26,24 @@ def main():
             for row in range(column, column+size):
                 if random[row] != 'x':
                     break
-                elif random[row] != 'x':
+                elif random[row] == 'x':
                     countX = countX + 1
                     if countX == size:
                         gameRunning = False
                         break
 
+    def selectColumn(random, size, index):
+        chooseColumn = input('Enter Column Number: ')
+        
+        while index >= size:
+            index -= size
+        index = index + (size * (chooseColumn-1))
+
     def removeRandom(list):
         nonlocal player1
+        nonlocal storeIndex
         randomNum = random.randint(0,len(list)-1)
+        storeIndex = storeIndex + randomNum
         x = list[randomNum]
         player1 += x
         list[randomNum] = 'x'
@@ -46,15 +54,12 @@ def main():
     player2 = 0
     storeIndex = 0
     gameRunning = True
-    checkColumn(temp,3)
-    checkRow(temp,3)
-    print(gameRunning)
-    # generateRandomNum(RANDOMNUM,GRIDSIZE)
-    # layout(RANDOMNUM,GRIDSIZE)
-    # askGameStart()
-    # removeRandom(RANDOMNUM)
-    # layout(RANDOMNUM,GRIDSIZE)
-    # printScore(GRIDSIZE,player1,player2)
+    generateRandomNum(RANDOMNUM,GRIDSIZE)
+    layout(RANDOMNUM,GRIDSIZE)
+    askGameStart()
+    removeRandom(RANDOMNUM)
+    layout(RANDOMNUM,GRIDSIZE)
+    printScore(GRIDSIZE,player1,player2)
 
 
 def generateRandomNum(randomNum,size):
