@@ -1,6 +1,5 @@
 #to Do List
 #make error for all input
-
 import random
 import sys
 
@@ -33,11 +32,24 @@ def main():
                         break
 
     def selectColumn(random, size, index):
-        chooseColumn = input('Enter Column Number: ')
-        
-        while index >= size:
-            index -= size
-        index = index + (size * (chooseColumn-1))
+        nonlocal player2
+        nonlocal storeIndex
+        while True:
+            chooseColumn = int(input('Enter Column Number: '))
+            if chooseColumn <= 0 or chooseColumn > size:
+                print("Invalid!")
+            else:
+                while index >= size:   #to get first row index num
+                    index -= size      #
+                index = index + (size * (chooseColumn-1))
+                if random[index] == 'x':
+                    print("It's already chosen!")
+                elif random[index] != 'x':
+                    player2 += random[index]
+                    random[index] = 'x'
+                    storeIndex = index
+                    break
+
 
     def removeRandom(list):
         nonlocal player1
@@ -60,6 +72,9 @@ def main():
     removeRandom(RANDOMNUM)
     layout(RANDOMNUM,GRIDSIZE)
     printScore(GRIDSIZE,player1,player2)
+    # selectColumn(RANDOMNUM,GRIDSIZE,storeIndex)
+    # layout(RANDOMNUM,GRIDSIZE)
+    # printScore(GRIDSIZE,player1,player2)
 
 
 def generateRandomNum(randomNum,size):
