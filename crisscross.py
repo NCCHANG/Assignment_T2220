@@ -21,6 +21,7 @@ def main():
                         break
 
     def checkRow(random, size):
+        nonlocal gameRunning
         for column in range(0,len(random),size):
             countX = 0
             for row in range(column, column+size):
