@@ -1,12 +1,6 @@
 #to Do List
 #make error for all input
 
-def testing(rad,sz):
-    for x in range(sz-1,sz*sz,sz):
-        print(x)
-
-
-
 import random
 import sys
 
@@ -26,7 +20,6 @@ def main():
     storeIndex = 0
     generateRandomNum(RANDOMNUM,GRIDSIZE)
     layout(RANDOMNUM,GRIDSIZE)
-    testing(RANDOMNUM,GRIDSIZE)
     askGameStart()
     removeRandom()
     layout(RANDOMNUM,GRIDSIZE)
