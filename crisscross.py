@@ -1,6 +1,12 @@
 #to Do List
 #make error for all input
 
+def testing(rad,sz):
+    for x in range(sz-1,sz*sz,sz):
+        print(x)
+
+
+
 import random
 import sys
 
@@ -17,10 +23,10 @@ def main():
     GRIDSIZE = int(input('Enter Grid Size: '))
     player1 = 0
     player2 = 0
-    temp = 0
+    storeIndex = 0
     generateRandomNum(RANDOMNUM,GRIDSIZE)
     layout(RANDOMNUM,GRIDSIZE)
-    printScore(GRIDSIZE,player1,player2)
+    testing(RANDOMNUM,GRIDSIZE)
     askGameStart()
     removeRandom()
     layout(RANDOMNUM,GRIDSIZE)
