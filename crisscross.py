@@ -50,8 +50,27 @@ def main():
                     storeIndex = index
                     break
 
-    # def selectRow(size):
-    #     for x in range(size-1)
+    def selectRow(random, size, index):
+        nonlocal player1
+        nonlocal storeIndex    
+        while True:
+            chooseRow = int(input('Enter Row Number: '))
+            if chooseRow <= 0 or chooseRow > size:
+                print("Please choose a valid number! ")
+            else:
+                for x in range(size-1, size*size, size):
+                    if index <= x :
+                        index = x
+                        index = index - size
+                        break
+                index += chooseRow
+                if random[index] == 'x':
+                    print("It's already chosen!")
+                elif random[index] != 'x':
+                    player1 += random[index]
+                    random[index] = 'x'
+                    storeIndex = index
+                    break            
 
     def gameplay():
         nonlocal gameRunning
@@ -60,6 +79,12 @@ def main():
             layout(RANDOMNUM,GRIDSIZE)
             printScore(GRIDSIZE,player1,player2)
             checkColumn(RANDOMNUM,GRIDSIZE)
+            checkRow(RANDOMNUM,GRIDSIZE)
+            selectRow(RANDOMNUM,GRIDSIZE,storeIndex)
+            layout(RANDOMNUM,GRIDSIZE)
+            printScore(GRIDSIZE,player1,player2)
+            checkColumn(RANDOMNUM,GRIDSIZE)
+            checkRow(RANDOMNUM,GRIDSIZE)
         if player1 > player2:
             print("Player 1 WON!")
         elif player2 > player1:
@@ -95,9 +120,6 @@ def main():
     layout(RANDOMNUM,GRIDSIZE)
     printScore(GRIDSIZE,player1,player2)
     gameplay()
-    # selectColumn(RANDOMNUM,GRIDSIZE,storeIndex)
-    # layout(RANDOMNUM,GRIDSIZE)
-    # printScore(GRIDSIZE,player1,player2)
 
 def generateRandomNum(randomNum,size):
     while len(randomNum) != size * size: #append all random number can create a func ~hx~ then return randomnum :)
