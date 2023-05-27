@@ -50,6 +50,24 @@ def main():
                     storeIndex = index
                     break
 
+    # def selectRow():
+
+    def gameplay():
+        nonlocal gameRunning
+        while gameRunning:
+            selectColumn(RANDOMNUM,GRIDSIZE,storeIndex)
+            layout(RANDOMNUM,GRIDSIZE)
+            printScore(GRIDSIZE,player1,player2)
+            checkColumn(RANDOMNUM,GRIDSIZE)
+        if player1 > player2:
+            print("Player 1 WON!")
+        elif player2 > player1:
+            print("Player 2 WON!")
+        restart = input("Would you like to play again?(Y/N)")
+        if restart == 'y' or restart == 'Y':
+            main()
+        elif restart == 'n' or restart == 'N':
+            sys.exit()  # make a error here if input invalid
 
     def removeRandom(list):
         nonlocal player1
@@ -72,10 +90,10 @@ def main():
     removeRandom(RANDOMNUM)
     layout(RANDOMNUM,GRIDSIZE)
     printScore(GRIDSIZE,player1,player2)
+    gameplay()
     # selectColumn(RANDOMNUM,GRIDSIZE,storeIndex)
     # layout(RANDOMNUM,GRIDSIZE)
     # printScore(GRIDSIZE,player1,player2)
-
 
 def generateRandomNum(randomNum,size):
     while len(randomNum) != size * size: #append all random number can create a func ~hx~ then return randomnum :)
