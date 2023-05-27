@@ -50,7 +50,8 @@ def main():
                     storeIndex = index
                     break
 
-    # def selectRow():
+    # def selectRow(size):
+    #     for x in range(size-1)
 
     def gameplay():
         nonlocal gameRunning
@@ -64,7 +65,7 @@ def main():
         elif player2 > player1:
             print("Player 2 WON!")
         while True:
-            restart = input("Would you like to play again?(Y/N)")
+            restart = input("Would you like to play again?(Y/N): ")
             if restart == 'y' or restart == 'Y':
                 main()
             elif restart == 'n' or restart == 'N':
