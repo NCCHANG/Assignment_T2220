@@ -37,7 +37,7 @@ def main():
         while True:
             chooseColumn = int(input('Enter Column Number: '))
             if chooseColumn <= 0 or chooseColumn > size:
-                print("Invalid!")
+                print("Please choose a valid number! ")
             else:
                 while index >= size:   #to get first row index num
                     index -= size      #
@@ -63,11 +63,14 @@ def main():
             print("Player 1 WON!")
         elif player2 > player1:
             print("Player 2 WON!")
-        restart = input("Would you like to play again?(Y/N)")
-        if restart == 'y' or restart == 'Y':
-            main()
-        elif restart == 'n' or restart == 'N':
-            sys.exit()  # make a error here if input invalid
+        while True:
+            restart = input("Would you like to play again?(Y/N)")
+            if restart == 'y' or restart == 'Y':
+                main()
+            elif restart == 'n' or restart == 'N':
+                sys.exit()
+            else:
+                print("Invalid! Please input again.")
 
     def removeRandom(list):
         nonlocal player1
@@ -130,7 +133,7 @@ def askGameStart():
         elif start == 'Y' or start == 'y':
             break
         else:
-            print("Invalid!")
+            print("Invalid! Please input again.")
 
 def printScore(size,p1,p2):
     center = (size * 5) + (size + 1)
