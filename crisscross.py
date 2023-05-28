@@ -7,7 +7,7 @@ def main():
 
     def checkColumn(random, size):
         nonlocal gameRunning
-        for row in range(size):
+        for row in range(0,size):
             countX = 0
             for column in range(row, len(random), size):
                 if random[column] != 'x':
@@ -72,8 +72,6 @@ def main():
                     storeIndex = index
                     break
     def gameplay():
-        nonlocal gameRunning
-        i = 0
         while gameRunning:
             selectColumn(RANDOMNUM,GRIDSIZE,storeIndex)
             currentColumn(storeIndex,GRIDSIZE)
@@ -81,13 +79,13 @@ def main():
             printScore(GRIDSIZE,player1,player2)
             checkColumn(RANDOMNUM,GRIDSIZE)
             checkRow(RANDOMNUM,GRIDSIZE)
-            selectRow(RANDOMNUM,GRIDSIZE,storeIndex)
-            currentColumn(storeIndex,GRIDSIZE)
-            layout(RANDOMNUM,GRIDSIZE)
-            printScore(GRIDSIZE,player1,player2)
-            checkColumn(RANDOMNUM,GRIDSIZE)
-            checkRow(RANDOMNUM,GRIDSIZE)
-            i += 1
+            if gameRunning == True:
+                selectRow(RANDOMNUM,GRIDSIZE,storeIndex)
+                currentColumn(storeIndex,GRIDSIZE)
+                layout(RANDOMNUM,GRIDSIZE)
+                printScore(GRIDSIZE,player1,player2)
+                checkColumn(RANDOMNUM,GRIDSIZE)
+                checkRow(RANDOMNUM,GRIDSIZE)
         if player1 > player2:
             print("Player 1 WON!")
         elif player2 > player1:
@@ -173,7 +171,7 @@ def currentColumn(index,size):
     whichColumn = 0
     space = "      "
     print("   ")
-    while index > size:
+    while index >= size:
         index -= size
     whichColumn = index
     space *= whichColumn
