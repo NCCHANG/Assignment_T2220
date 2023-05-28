@@ -74,17 +74,21 @@ def main():
 
     def gameplay():
         nonlocal gameRunning
+        i = 0
         while gameRunning:
             selectColumn(RANDOMNUM,GRIDSIZE,storeIndex)
+            currentColumn(storeIndex,GRIDSIZE)
             layout(RANDOMNUM,GRIDSIZE)
             printScore(GRIDSIZE,player1,player2)
             checkColumn(RANDOMNUM,GRIDSIZE)
             checkRow(RANDOMNUM,GRIDSIZE)
             selectRow(RANDOMNUM,GRIDSIZE,storeIndex)
+            currentColumn(storeIndex,GRIDSIZE)
             layout(RANDOMNUM,GRIDSIZE)
             printScore(GRIDSIZE,player1,player2)
             checkColumn(RANDOMNUM,GRIDSIZE)
             checkRow(RANDOMNUM,GRIDSIZE)
+            i += 1
         if player1 > player2:
             print("Player 1 WON!")
         elif player2 > player1:
@@ -117,6 +121,7 @@ def main():
     layout(RANDOMNUM,GRIDSIZE)
     askGameStart()
     removeRandom(RANDOMNUM)
+    currentColumn(storeIndex,GRIDSIZE)
     layout(RANDOMNUM,GRIDSIZE)
     printScore(GRIDSIZE,player1,player2)
     gameplay()
@@ -165,4 +170,13 @@ def printScore(size,p1,p2):
     space = ' ' * int(player)
     print(space+f'Player 1 : {p1}'+space+space+f'Player 2 : {p2}')
 
+def currentColumn(index,size):
+    whichColumn = 0
+    space = "      "
+    print("   ")
+    while index > size:
+        index -= size
+    whichColumn = index
+    space *= whichColumn
+    print(space + '   '+ "V")
 main()
