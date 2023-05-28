@@ -70,8 +70,7 @@ def main():
                     player1 += random[index]
                     random[index] = 'x'
                     storeIndex = index
-                    break            
-
+                    break
     def gameplay():
         nonlocal gameRunning
         i = 0
