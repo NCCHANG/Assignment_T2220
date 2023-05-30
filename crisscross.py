@@ -1,5 +1,3 @@
-#to Do List
-#make error for all input
 import random
 import sys
 
@@ -146,15 +144,15 @@ def layout(index,randomNum,size,showRow):
             else:
                 print(f" {randomNum[i]} ",end = '')
             i += 1                 #to loop through list
-        print("|",end='')
+        print(f"|",end='')
         if showRow == False:
-            print()
+            print(printingRow)
         elif showRow == True:
             if whichRow == printingRow:
                 print("<<<")
             elif whichRow != printingRow:
                 print()
-            printingRow += 1
+        printingRow += 1
     print("------" * size,end = "")
     print("-")
 
@@ -192,4 +190,5 @@ def currentRow(index, random, size):
             break
         i = i + 1
     return i
+
 main()
