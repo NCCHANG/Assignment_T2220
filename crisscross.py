@@ -74,15 +74,14 @@ def main():
     def gameplay():
         while gameRunning:
             selectColumn(RANDOMNUM,GRIDSIZE,storeIndex)
-            currentColumn(storeIndex,GRIDSIZE)
-            layout(storeIndex,RANDOMNUM,GRIDSIZE)
+            layout(storeIndex,RANDOMNUM,GRIDSIZE,True)
             printScore(GRIDSIZE,player1,player2)
             checkColumn(RANDOMNUM,GRIDSIZE)
             checkRow(RANDOMNUM,GRIDSIZE)
             if gameRunning == True:
                 selectRow(RANDOMNUM,GRIDSIZE,storeIndex)
                 currentColumn(storeIndex,GRIDSIZE)
-                layout(storeIndex,RANDOMNUM,GRIDSIZE)
+                layout(storeIndex,RANDOMNUM,GRIDSIZE,False)
                 printScore(GRIDSIZE,player1,player2)
                 checkColumn(RANDOMNUM,GRIDSIZE)
                 checkRow(RANDOMNUM,GRIDSIZE)
@@ -115,11 +114,11 @@ def main():
     storeIndex = 0
     gameRunning = True
     generateRandomNum(RANDOMNUM,GRIDSIZE)
-    layout(storeIndex,RANDOMNUM,GRIDSIZE)
+    layout(storeIndex,RANDOMNUM,GRIDSIZE,False)
     askGameStart()
     removeRandom(RANDOMNUM)
     currentColumn(storeIndex,GRIDSIZE)
-    layout(storeIndex,RANDOMNUM,GRIDSIZE)
+    layout(storeIndex,RANDOMNUM,GRIDSIZE,False)
     printScore(GRIDSIZE,player1,player2)
     gameplay()
 
@@ -129,8 +128,8 @@ def generateRandomNum(randomNum,size):
         randomNum.append(x)
     
 
-def layout(index,randomNum,size):
-    printingRow = 0
+def layout(index,randomNum,size,showRow):
+    printingRow = 1
     whichRow = currentRow(index,randomNum,size)
     i = 0
     for row in range(size):
@@ -147,13 +146,15 @@ def layout(index,randomNum,size):
             else:
                 print(f" {randomNum[i]} ",end = '')
             i += 1                 #to loop through list
-            if column == size-1 :
-                print("|")
-                printingRow += 1
-            # if printingRow != whichRow:
-            #     print()
-            # elif printingRow == whichRow:
-            #     print("<<<")
+        print("|",end='')
+        if showRow == False:
+            print()
+        elif showRow == True:
+            if whichRow == printingRow:
+                print("<<<")
+            elif whichRow != printingRow:
+                print()
+            printingRow += 1
     print("------" * size,end = "")
     print("-")
 
