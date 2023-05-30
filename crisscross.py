@@ -75,14 +75,14 @@ def main():
         while gameRunning:
             selectColumn(RANDOMNUM,GRIDSIZE,storeIndex)
             currentColumn(storeIndex,GRIDSIZE)
-            layout(RANDOMNUM,GRIDSIZE)
+            layout(storeIndex,RANDOMNUM,GRIDSIZE)
             printScore(GRIDSIZE,player1,player2)
             checkColumn(RANDOMNUM,GRIDSIZE)
             checkRow(RANDOMNUM,GRIDSIZE)
             if gameRunning == True:
                 selectRow(RANDOMNUM,GRIDSIZE,storeIndex)
                 currentColumn(storeIndex,GRIDSIZE)
-                layout(RANDOMNUM,GRIDSIZE)
+                layout(storeIndex,RANDOMNUM,GRIDSIZE)
                 printScore(GRIDSIZE,player1,player2)
                 checkColumn(RANDOMNUM,GRIDSIZE)
                 checkRow(RANDOMNUM,GRIDSIZE)
@@ -115,11 +115,11 @@ def main():
     storeIndex = 0
     gameRunning = True
     generateRandomNum(RANDOMNUM,GRIDSIZE)
-    layout(RANDOMNUM,GRIDSIZE)
+    layout(storeIndex,RANDOMNUM,GRIDSIZE)
     askGameStart()
     removeRandom(RANDOMNUM)
     currentColumn(storeIndex,GRIDSIZE)
-    layout(RANDOMNUM,GRIDSIZE)
+    layout(storeIndex,RANDOMNUM,GRIDSIZE)
     printScore(GRIDSIZE,player1,player2)
     gameplay()
 
@@ -129,7 +129,9 @@ def generateRandomNum(randomNum,size):
         randomNum.append(x)
     
 
-def layout(randomNum,size):
+def layout(index,randomNum,size):
+    printingRow = 0
+    whichRow = currentRow(index,randomNum,size)
     i = 0
     for row in range(size):
         print("------" * size,end = "")
@@ -137,7 +139,7 @@ def layout(randomNum,size):
         for column in range(size):
             print("|",end = "")
             if randomNum[i] == 'x' or randomNum[i] >= 0 and randomNum[i] < 10:
-                print(f"  {randomNum[i]}  ",end = "")
+                print(f"  {randomNum[i]}  ",end = '')
             elif randomNum[i] >= 10:
                 print(f" {randomNum[i]}  ",end= '')
             elif randomNum[i] < 0 and randomNum[i] > -10:
@@ -147,6 +149,11 @@ def layout(randomNum,size):
             i += 1                 #to loop through list
             if column == size-1 :
                 print("|")
+                printingRow += 1
+            # if printingRow != whichRow:
+            #     print()
+            # elif printingRow == whichRow:
+            #     print("<<<")
     print("------" * size,end = "")
     print("-")
 
@@ -176,4 +183,12 @@ def currentColumn(index,size):
     whichColumn = index
     space *= whichColumn
     print(space + '   '+ "V")
+
+def currentRow(index, random, size):
+    i = 1
+    for x in range(size, len(random), size):
+        if index < x :
+            break
+        i = i + 1
+    return i
 main()
