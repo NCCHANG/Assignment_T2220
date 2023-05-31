@@ -116,6 +116,7 @@ def main():
     askGameStart()
     removeRandom(RANDOMNUM)
     currentColumn(storeIndex,GRIDSIZE)
+    columnNum(GRIDSIZE)
     layout(storeIndex,RANDOMNUM,GRIDSIZE,False)
     printScore(GRIDSIZE,player1,player2)
     gameplay()
@@ -146,7 +147,7 @@ def layout(index,randomNum,size,showRow):
             i += 1                 #to loop through list
         print(f"|",end='')
         if showRow == False:
-            print(printingRow)
+            print("", printingRow)
         elif showRow == True:
             if whichRow == printingRow:
                 print("<<<")
@@ -176,12 +177,12 @@ def printScore(size,p1,p2):
 def currentColumn(index,size):
     whichColumn = 0
     space = "      "
-    print("   ")
+    print("   ",end='')
     while index >= size:
         index -= size
     whichColumn = index
     space *= whichColumn
-    print(space + '   '+ "V")
+    print(space + "V")
 
 def currentRow(index, random, size):
     i = 1
@@ -190,5 +191,12 @@ def currentRow(index, random, size):
             break
         i = i + 1
     return i
+
+def columnNum(size):
+    print('   ',end='')
+    for x in range(1, size+1):
+        print(x,end='')
+        print('     ',end='')
+    print()
 
 main()
