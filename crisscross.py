@@ -8,6 +8,8 @@ def main():
     player2 = 0
     storeIndex = 0
     gameRunning = True
+    shuffleChanceP1 = 1
+    shuffleChanceP2 = 1
     generateRandomNum(RANDOMNUM,GRIDSIZE)
     layout(storeIndex,RANDOMNUM,GRIDSIZE,"nothing")
     askGameStart()
@@ -22,11 +24,19 @@ def main():
         printScore(GRIDSIZE,player1,player2)
         gameRunning = checkColumn(RANDOMNUM,GRIDSIZE)
         gameRunning = checkRow(RANDOMNUM,GRIDSIZE)
+        if gameRunning == False: break
+        shuffleChanceP2 = shuffle(storeIndex,RANDOMNUM,GRIDSIZE,shuffleChanceP2,True,gameRunning)
+        gameRunning = checkColumn(RANDOMNUM,GRIDSIZE)
+        gameRunning = checkRow(RANDOMNUM,GRIDSIZE)
         if gameRunning == True:
             player1, storeIndex = selectRow(player1,storeIndex,RANDOMNUM,GRIDSIZE)
             currentColumn(storeIndex,GRIDSIZE)
             layout(storeIndex,RANDOMNUM,GRIDSIZE,False)
             printScore(GRIDSIZE,player1,player2)
+            gameRunning = checkColumn(RANDOMNUM,GRIDSIZE)
+            gameRunning = checkRow(RANDOMNUM,GRIDSIZE)
+            if gameRunning == False: break
+            shuffleChanceP1 = shuffle(storeIndex,RANDOMNUM,GRIDSIZE,shuffleChanceP1,False,gameRunning)
             gameRunning = checkColumn(RANDOMNUM,GRIDSIZE)
             gameRunning = checkRow(RANDOMNUM,GRIDSIZE)
     if player1 > player2:
@@ -87,15 +97,33 @@ def printScore(size,p1,p2):
 def askGameStart():
     while True:
         start = input("Start?(Y/N): ")
-        if start == 'N' or start == 'n':
+        if start == 'n' or start == 'N':
             sys.exit()
-        elif start == 'Y' or start == 'y':
+        elif start == 'y' or start == 'Y':
             break
         else:
             print("Invalid! Please input again.")
 
-def shuffle(ran):
-    random.shuffle(ran)
+def shuffle(index,list,size,chance,row,condition):
+    if chance != 0 and condition != False:
+        while True:
+            if row == True:
+                shuff = input("P2 do you want to shuffle?(Y/N): ")
+            elif row == False:
+                shuff = input("P1 do you want to shuffle?(Y/N): ")
+            if shuff == 'n' or shuff == 'N':
+                return 1
+            elif shuff == 'y' or shuff == 'Y':
+                break
+            else:
+                print("Invalid! Please input again.")
+        random.shuffle(list)
+        if row == True:
+            columnNum(size)
+        elif row == False:
+            currentColumn(index,size)
+        layout(index,list,size,row)
+        return 0
 
 def removeRandom(p1, index, list):
     randomNum = random.randint(0,len(list)-1)
