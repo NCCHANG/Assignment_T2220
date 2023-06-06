@@ -46,15 +46,13 @@ def generateRandomNum(randomNum,size):
     while len(randomNum) != size * size: #append all random number can create a func ~hx~ then return randomnum :)
         x = random.randint(-30,30)
         randomNum.append(x)
-    
 
 def layout(index,randomNum,size,showRow):
     printingRow = 1
     whichRow = currentRow(index,randomNum,size)
     i = 0
     for row in range(size):
-        print("------" * size,end = "")
-        print("-")
+        print("------" * size + '-')
         for column in range(size):
             print("|",end = "")
             if randomNum[i] == 'x' or randomNum[i] >= 0 and randomNum[i] < 10:
@@ -66,7 +64,7 @@ def layout(index,randomNum,size,showRow):
             else:
                 print(f" {randomNum[i]} ",end = '')
             i += 1                 #to loop through list
-        print(f"|",end='')
+        print("|",end='')
         if showRow == "nothing":
             print()
         elif showRow == False:
@@ -77,8 +75,7 @@ def layout(index,randomNum,size,showRow):
             elif whichRow != printingRow:
                 print()
         printingRow += 1
-    print("------" * size,end = "")
-    print("-")
+    print("------" * size + '-')
 
 def printScore(size,p1,p2):
     center = (size * 5) + (size + 1)
@@ -89,13 +86,16 @@ def printScore(size,p1,p2):
 
 def askGameStart():
     while True:
-        start = input('Start?(Y/N): ')
+        start = input("Start?(Y/N): ")
         if start == 'N' or start == 'n':
             sys.exit()
         elif start == 'Y' or start == 'y':
             break
         else:
             print("Invalid! Please input again.")
+
+def shuffle(ran):
+    random.shuffle(ran)
 
 def removeRandom(p1, index, list):
     randomNum = random.randint(0,len(list)-1)
