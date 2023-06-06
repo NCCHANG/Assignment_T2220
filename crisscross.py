@@ -4,12 +4,10 @@ import sys
 def main():
     RANDOMNUM = []
     GRIDSIZE = int(input('Enter Grid Size: '))
-    player1 = 0
-    player2 = 0
+    player1,player2 = 0,0
     storeIndex = 0
     gameRunning = True
-    shuffleChanceP1 = 1
-    shuffleChanceP2 = 1
+    shuffleChanceP1,shuffleChanceP2 = 1,1
     generateRandomNum(RANDOMNUM,GRIDSIZE)
     layout(storeIndex,RANDOMNUM,GRIDSIZE,"nothing")
     askGameStart()
@@ -25,7 +23,7 @@ def main():
         gameRunning = checkColumn(RANDOMNUM,GRIDSIZE)
         gameRunning = checkRow(RANDOMNUM,GRIDSIZE)
         if gameRunning == False: break
-        shuffleChanceP2 = shuffle(storeIndex,RANDOMNUM,GRIDSIZE,shuffleChanceP2,True,gameRunning)
+        shuffleChanceP2 = shuffle(storeIndex,RANDOMNUM,GRIDSIZE,shuffleChanceP2,True,gameRunning,player1,player2)
         gameRunning = checkColumn(RANDOMNUM,GRIDSIZE)
         gameRunning = checkRow(RANDOMNUM,GRIDSIZE)
         if gameRunning == True:
@@ -36,7 +34,7 @@ def main():
             gameRunning = checkColumn(RANDOMNUM,GRIDSIZE)
             gameRunning = checkRow(RANDOMNUM,GRIDSIZE)
             if gameRunning == False: break
-            shuffleChanceP1 = shuffle(storeIndex,RANDOMNUM,GRIDSIZE,shuffleChanceP1,False,gameRunning)
+            shuffleChanceP1 = shuffle(storeIndex,RANDOMNUM,GRIDSIZE,shuffleChanceP1,False,gameRunning,player1,player2)
             gameRunning = checkColumn(RANDOMNUM,GRIDSIZE)
             gameRunning = checkRow(RANDOMNUM,GRIDSIZE)
     if player1 > player2:
@@ -104,7 +102,7 @@ def askGameStart():
         else:
             print("Invalid! Please input again.")
 
-def shuffle(index,list,size,chance,row,condition):
+def shuffle(index,list,size,chance,row,condition,p1,p2):
     if chance != 0 and condition != False:
         while True:
             if row == True:
@@ -123,6 +121,7 @@ def shuffle(index,list,size,chance,row,condition):
         elif row == False:
             currentColumn(index,size)
         layout(index,list,size,row)
+        printScore(size,p1,p2)
         return 0
 
 def removeRandom(p1, index, list):
