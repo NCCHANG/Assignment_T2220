@@ -11,6 +11,7 @@ def main():
     generateRandomNum(randomNum,GRIDSIZE)
     layout(storeIndex,randomNum,GRIDSIZE,"nothing")
     askGameStart()
+    print("\n\n\nWELCOME TO THE GAME!!\n\n\n")
     player1, storeIndex = removeRandom(player1,storeIndex,randomNum)
     currentColumn(storeIndex,GRIDSIZE)
     layout(storeIndex,randomNum,GRIDSIZE,False)
@@ -37,9 +38,10 @@ def main():
         print("Player 2 WON!")
     while True:
         restart = input("Would you like to play again?(Y/N): ")
-        if restart == 'y' or restart == 'Y':
+        restart = restart.lower()
+        if restart == 'y':
             main()
-        elif restart == 'n' or restart == 'N':
+        elif restart == 'n':
             sys.exit()
         else:
             print("Invalid! Please input again.")
@@ -90,9 +92,10 @@ def printScore(size,p1,p2):
 def askGameStart():
     while True:
         start = input('Start?(Y/N): ')
-        if start == 'N' or start == 'n':
+        start = start.lower()
+        if start == 'n':
             sys.exit()
-        elif start == 'Y' or start == 'y':
+        elif start == 'y':
             break
         else:
             print("Invalid! Please input again.")
