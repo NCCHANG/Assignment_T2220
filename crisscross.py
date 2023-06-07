@@ -21,31 +21,25 @@ def main():
         columnNum(GRIDSIZE)
         layout(storeIndex,randomNum,GRIDSIZE,True)
         printScore(GRIDSIZE,player1,player2)
-        gameRunning = checkColumn(randomNum,GRIDSIZE)
-        if gameRunning == False: break
-        gameRunning = checkRow(randomNum,GRIDSIZE)
-        if gameRunning == False: break
+        gameRunning = checkColumn(randomNum,GRIDSIZE,gameRunning)
+        gameRunning = checkRow(randomNum,GRIDSIZE,gameRunning)
         shuffleChanceP2 = shuffle(storeIndex,randomNum,GRIDSIZE,shuffleChanceP2,True,gameRunning,player1,player2)
-        gameRunning = checkColumn(randomNum,GRIDSIZE)
+        gameRunning = checkColumn(randomNum,GRIDSIZE,gameRunning)
+        gameRunning = checkRow(randomNum,GRIDSIZE,gameRunning)
         if gameRunning == False: break
-        gameRunning = checkRow(randomNum,GRIDSIZE)
-        if gameRunning == True:
-            player1, storeIndex = selectRow(player1,storeIndex,randomNum,GRIDSIZE)
-            currentColumn(storeIndex,GRIDSIZE)
-            layout(storeIndex,randomNum,GRIDSIZE,False)
-            printScore(GRIDSIZE,player1,player2)
-            gameRunning = checkColumn(randomNum,GRIDSIZE)
-            if gameRunning == False: break
-            gameRunning = checkRow(randomNum,GRIDSIZE)
-            if gameRunning == False: break
-            shuffleChanceP1 = shuffle(storeIndex,randomNum,GRIDSIZE,shuffleChanceP1,False,gameRunning,player1,player2)
-            gameRunning = checkColumn(randomNum,GRIDSIZE)
-            if gameRunning == False: break
-            gameRunning = checkRow(randomNum,GRIDSIZE)
+        player1, storeIndex = selectRow(player1,storeIndex,randomNum,GRIDSIZE)
+        currentColumn(storeIndex,GRIDSIZE)
+        layout(storeIndex,randomNum,GRIDSIZE,False)
+        printScore(GRIDSIZE,player1,player2)
+        gameRunning = checkColumn(randomNum,GRIDSIZE,gameRunning)
+        gameRunning = checkRow(randomNum,GRIDSIZE,gameRunning)
+        shuffleChanceP1 = shuffle(storeIndex,randomNum,GRIDSIZE,shuffleChanceP1,False,gameRunning,player1,player2)
+        gameRunning = checkColumn(randomNum,GRIDSIZE,gameRunning)
+        gameRunning = checkRow(randomNum,GRIDSIZE,gameRunning)
     if player1 > player2:
-        print("Player 1 WON!")
+        print("Player 1 WON!\n")
     elif player2 > player1:
-        print("Player 2 WON!")
+        print("Player 2 WON!\n")
     while True:
         restart = input("Would you like to play again?(Y/N): ")
         restart = restart.lower()
@@ -139,7 +133,7 @@ def removeRandom(p1, index, list):
     list[randomNum] = 'x'
     return p1, index
 
-def checkColumn(random, size):
+def checkColumn(random, size,condition):
     for row in range(0,size):
         countX = 0
         for column in range(row, len(random), size):
@@ -149,9 +143,9 @@ def checkColumn(random, size):
                 countX = countX + 1
                 if countX == size:
                     return False
-    return True
+    return condition
 
-def checkRow(random, size):
+def checkRow(random, size,condition):
     for column in range(0,len(random),size):
         countX = 0
         for row in range(column, column+size):
@@ -161,7 +155,7 @@ def checkRow(random, size):
                 countX = countX + 1
                 if countX == size:
                     return False
-    return True
+    return condition
 
 def selectColumn(p2,index,random, size):
     while True:
