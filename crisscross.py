@@ -2,33 +2,35 @@ import random
 import sys
 
 def main():
-    RANDOMNUM = []
+    randomNum = []
     GRIDSIZE = int(input('Enter Grid Size: '))
     player1 = 0
     player2 = 0
     storeIndex = 0
     gameRunning = True
-    generateRandomNum(RANDOMNUM,GRIDSIZE)
-    layout(storeIndex,RANDOMNUM,GRIDSIZE,"nothing")
+    generateRandomNum(randomNum,GRIDSIZE)
+    layout(storeIndex,randomNum,GRIDSIZE,"nothing")
     askGameStart()
-    player1, storeIndex = removeRandom(player1,storeIndex,RANDOMNUM)
+    player1, storeIndex = removeRandom(player1,storeIndex,randomNum)
     currentColumn(storeIndex,GRIDSIZE)
-    layout(storeIndex,RANDOMNUM,GRIDSIZE,False)
+    layout(storeIndex,randomNum,GRIDSIZE,False)
     printScore(GRIDSIZE,player1,player2)
     while gameRunning:
-        player2, storeIndex = selectColumn(player2,storeIndex,RANDOMNUM,GRIDSIZE)
+        player2, storeIndex = selectColumn(player2,storeIndex,randomNum,GRIDSIZE)
         columnNum(GRIDSIZE)
-        layout(storeIndex,RANDOMNUM,GRIDSIZE,True)
+        layout(storeIndex,randomNum,GRIDSIZE,True)
         printScore(GRIDSIZE,player1,player2)
-        gameRunning = checkColumn(RANDOMNUM,GRIDSIZE)
-        gameRunning = checkRow(RANDOMNUM,GRIDSIZE)
+        gameRunning = checkColumn(randomNum,GRIDSIZE)
+        if gameRunning == False: break
+        gameRunning = checkRow(randomNum,GRIDSIZE)
         if gameRunning == True:
-            player1, storeIndex = selectRow(player1,storeIndex,RANDOMNUM,GRIDSIZE)
+            player1, storeIndex = selectRow(player1,storeIndex,randomNum,GRIDSIZE)
             currentColumn(storeIndex,GRIDSIZE)
-            layout(storeIndex,RANDOMNUM,GRIDSIZE,False)
+            layout(storeIndex,randomNum,GRIDSIZE,False)
             printScore(GRIDSIZE,player1,player2)
-            gameRunning = checkColumn(RANDOMNUM,GRIDSIZE)
-            gameRunning = checkRow(RANDOMNUM,GRIDSIZE)
+            gameRunning = checkColumn(randomNum,GRIDSIZE)
+            if gameRunning == False: break
+            gameRunning = checkRow(randomNum,GRIDSIZE)
     if player1 > player2:
         print("Player 1 WON!")
     elif player2 > player1:
