@@ -49,7 +49,6 @@ def generateRandomNum(randomNum,size):
         x = random.randint(-30,30)
         randomNum.append(x)
     
-
 def layout(index,randomNum,size,showRow):
     printingRow = 1
     whichRow = currentRow(index,randomNum,size)
@@ -85,7 +84,7 @@ def printScore(size,p1,p2):
     centerter = center // 2
     player = (centerter - 12) / 2
     space = ' ' * int(player)
-    print(space+f'Player 1 : {p1}'+space+space+f'Player 2 : {p2}')
+    print(space+f'Player 1 : {p1}'+space+space+f'Player 2 : {p2}\n')
 
 def askGameStart():
     while True:
@@ -131,6 +130,7 @@ def checkRow(random, size):
 
 def selectColumn(p2,index,random, size):
     while True:
+        print('Now Player2 Turn')
         chooseColumn = int(input('Enter Column Number: '))
         if chooseColumn <= 0 or chooseColumn > size:
             print("Please choose a valid number! ")
@@ -147,6 +147,7 @@ def selectColumn(p2,index,random, size):
 
 def selectRow(p1, index, random, size):
     while True:
+        print('Now Player1 Turn')
         chooseRow = int(input('Enter Row Number: '))
         if chooseRow <= 0 or chooseRow > size:
             print("Please choose a valid number! ")
