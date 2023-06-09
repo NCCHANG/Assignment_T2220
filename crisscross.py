@@ -3,7 +3,7 @@ import sys
 
 def main():
     randomNum = []
-    GRIDSIZE = int(input('Enter Grid Size: '))
+    GRIDSIZE = int(input('Enter Grid Size: ')) #should make a error
     player1,player2 = 0,0
     storeIndex = 0
     gameRunning = True
