@@ -21,6 +21,7 @@ def main():
         columnNum(GRIDSIZE)
         layout(storeIndex,randomNum,GRIDSIZE,True)
         printScore(GRIDSIZE,player1,player2)
+        print("-"*GRIDSIZE*7,"\n")
         gameRunning = checkColumn(randomNum,GRIDSIZE,gameRunning)
         gameRunning = checkRow(randomNum,GRIDSIZE,gameRunning)
         shuffleChanceP2 = shuffle(storeIndex,randomNum,GRIDSIZE,shuffleChanceP2,True,gameRunning,player1,player2)
@@ -160,15 +161,15 @@ def checkRow(random, size,condition):
 def selectColumn(p2,index,random, size):
     while True:
         print('Now Player2 Turn')
-        chooseColumn = int(input('Enter Column Number: '))
+        chooseColumn = int(input(f"Enter Column Number 1-{size}: "))
         if chooseColumn <= 0 or chooseColumn > size:
-            print("Please choose a valid number! ")
+            print("Please choose a valid number! \n")
         else:
             while index >= size:   #to get first row index num
                 index -= size      #
             index = index + (size * (chooseColumn-1))
             if random[index] == 'x':
-                print("It's already chosen!")
+                print("It's already chosen!\n")
             elif random[index] != 'x':
                 p2 += random[index]
                 random[index] = 'x'
@@ -177,7 +178,7 @@ def selectColumn(p2,index,random, size):
 def selectRow(p1, index, random, size):
     while True:
         print('Now Player1 Turn')
-        chooseRow = int(input('Enter Row Number: '))
+        chooseRow = int(input(f"Enter Row Number 1-{size}: "))
         if chooseRow <= 0 or chooseRow > size:
             print("Please choose a valid number! ")
         else:
