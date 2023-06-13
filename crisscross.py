@@ -8,7 +8,7 @@ def main():
     storeIndex = 0
     gameRunning = True
     shuffleChanceP1,shuffleChanceP2 = 1,1
-    generateRandomNum(randomNum,GRIDSIZE)
+    randomNum = generateRandomNum(randomNum,GRIDSIZE)
     layout(storeIndex,randomNum,GRIDSIZE,"nothing")
     askGameStart()
     print("\n\n\nWELCOME TO THE GAME!!\n\n\n")
@@ -52,9 +52,8 @@ def main():
             print("Invalid! Please input again.")
 
 def generateRandomNum(randomNum,size):
-    while len(randomNum) != size * size: #append all random number can create a func ~hx~ then return randomnum :)
-        x = random.randint(-30,30)
-        randomNum.append(x)
+    randomNum = [random.randint(-30,30) for x in range((size*size)+1)]
+    return randomNum
     
 def layout(index,randomNum,size,showRow):
     printingRow = 1
