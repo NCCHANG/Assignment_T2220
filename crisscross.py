@@ -1,5 +1,6 @@
 import random
 import sys
+#shuffle chance
 
 def main():
     randomNum = []
@@ -7,7 +8,7 @@ def main():
     player1,player2 = 0,0
     storeIndex = 0
     gameRunning = True
-    # shuffleChanceP1,shuffleChanceP2 = 1,1
+    shuffleChanceP1,shuffleChanceP2 = 1,1
     randomNum = generateRandomNum(randomNum,GRIDSIZE)
     layout(storeIndex,randomNum,GRIDSIZE,"nothing")
     askGameStart()
@@ -136,7 +137,7 @@ def selectColumn(index,list,size,p2):
         try :
             chooseColumn = int(chooseColumn)
             if chooseColumn <= 0 or chooseColumn > size:
-                print("Please choose a valid number! \n") 
+                print("Please choose a valid number! \n")
             else:
                 while index >= size:   #to get first row index num
                     index -= size      #
@@ -148,7 +149,7 @@ def selectColumn(index,list,size,p2):
                     list[index] = 'x'
                     return p2, index
         except :
-            if chooseColumn == ('shuffle' or 'Shuffle'):
+            if chooseColumn == 'shuffle' or chooseColumn == 'Shuffle':
                 random.shuffle(list) 
                 return p2, index
             else:
@@ -176,7 +177,7 @@ def selectRow(index,list,size,p1):
                     list[index] = 'x'
                     return p1, index
         except :
-            if chooseRow == ('shuffle' or 'Shuffle'):
+            if chooseRow == 'shuffle' or chooseRow == 'Shuffle':
                 return p1, index
             else:
                 print('Error')
