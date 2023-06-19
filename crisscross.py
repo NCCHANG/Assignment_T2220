@@ -17,7 +17,14 @@ import sys
 def main():
     print('LIM WEI JUN, CHANG HOE HIN')
     randomNum = []
-    GRIDSIZE = int(input('Enter Grid Size: '))
+    player1Score = []
+    player2Score = []
+    while True:
+        GRIDSIZE = int(input('Enter Grid Size: '))
+        if GRIDSIZE < 11 and GRIDSIZE > 1:
+            break
+        else:
+            print('Enter a Valid Integer')
     player1,player2 = 0,0
     storeIndex = 0
     gameRunning = True
@@ -26,22 +33,22 @@ def main():
     layout(storeIndex,randomNum,GRIDSIZE,"nothing")
     askGameStart()
     print("\n\n\nWELCOME TO THE GAME!!\n\n\n")
-    player1, storeIndex = removeRandom(player1,storeIndex,randomNum)
+    player1, storeIndex = removeRandom(player1,storeIndex,randomNum,player1Score)
     currentColumn(storeIndex,GRIDSIZE)
     layout(storeIndex,randomNum,GRIDSIZE,False)
-    printScore(player1,player2)
+    printScore(player1,player2,player1Score,player2Score)
     while gameRunning:
-        player2, storeIndex, shuffleChanceP2 = selectColumn(storeIndex,randomNum,GRIDSIZE,player2,shuffleChanceP2)
+        player2, storeIndex, shuffleChanceP2 = selectRow(storeIndex,randomNum,GRIDSIZE,player2,shuffleChanceP2,player2Score)
         columnNum(GRIDSIZE)
         layout(storeIndex,randomNum,GRIDSIZE,True)
-        printScore(player1,player2)
+        printScore(player1,player2,player1Score,player2Score)
         gameRunning = checkColumn(randomNum,GRIDSIZE,gameRunning)
         gameRunning = checkRow(randomNum,GRIDSIZE,gameRunning)
         if gameRunning == False: break
-        player1, storeIndex, shuffleChanceP1 = selectRow(storeIndex,randomNum,GRIDSIZE,player1,shuffleChanceP1)
+        player1, storeIndex, shuffleChanceP1 = selectColumn(storeIndex,randomNum,GRIDSIZE,player1,shuffleChanceP1,player1Score)
         currentColumn(storeIndex,GRIDSIZE)
         layout(storeIndex,randomNum,GRIDSIZE,False)
-        printScore(player1,player2)
+        printScore(player1,player2,player1Score,player2Score)
         gameRunning = checkColumn(randomNum,GRIDSIZE,gameRunning)
         gameRunning = checkRow(randomNum,GRIDSIZE,gameRunning)
     if player1 > player2:
@@ -59,7 +66,7 @@ def main():
             print("Invalid! Please input again.")
 
 def generateRandomNum(randomNum,size):
-    randomNum = [random.randint(-30,30) for x in range((size*size)+1)]
+    randomNum = [random.randint(-30,30) for x in range((size*size))]
     return randomNum
     
 def layout(index,randomNum,size,showRow):
@@ -92,9 +99,11 @@ def layout(index,randomNum,size,showRow):
         printingRow += 1
     print("------" * size + '-')
 
-def printScore(p1,p2):
+def printScore(p1,p2,p1Score,p2Score):
     space = ' ' * 5
     print(space+f'Player 1 : {p1}'+space+space+f'Player 2 : {p2}\n')
+    print(f'Player1: {p1Score} \n')
+    print(f'Player2: {p2Score} \n')
 
 def askGameStart():
     while True:
@@ -107,11 +116,12 @@ def askGameStart():
         else:
             print("Invalid! Please input again.")
 
-def removeRandom(p1, index, list):
+def removeRandom(p1, index, list,p1Score):
     randomNum = random.randint(0,len(list)-1)
     index += randomNum
     x = list[randomNum]
     p1 += x
+    p1Score.append(list[randomNum])
     list[randomNum] = 'x'
     return p1, index
 
@@ -139,44 +149,45 @@ def checkRow(list, size,condition):
                     return False
     return condition
 
-def selectColumn(index,list,size,p2,chance):
+def selectRow(index,list,size,p2,chance,p2Score):
     print('Now Player2 Turn')
-    while True:
-        chooseColumn = input(f"Enter Column Number 1-{size}: ")
-        try :
-            chooseColumn = int(chooseColumn)
-            if chooseColumn <= 0 or chooseColumn > size:
-                print("Please choose a valid number! \n")
-            else:
-                while index >= size:   #to get first row index num
-                    index -= size      #
-                index = index + (size * (chooseColumn-1))
-                if list[index] == 'x':
-                    print("It's already chosen!\n")
-                elif list[index] != 'x':
-                    p2 += list[index]
-                    list[index] = 'x'
-                    return p2, index, chance
-        except :
-            if chance == 1:
-                if chooseColumn == 'shuffle' or chooseColumn == 'Shuffle':
-                    random.shuffle(list)
-                    chance -= 1 
-                    return p2, index, chance
-                else:
-                    print('Invalid!')
-            elif chooseColumn == "shuffle" or chooseColumn == 'Shuffle':
-                print("You can't use shuffle again!")
-            else:
-                print("Invalid!")
-
-def selectRow(index,list,size,p1,chance):
-    print('Now Player1 Turn')
     while True:
         chooseRow = input(f"Enter Row Number 1-{size}: ")
         try :
             chooseRow = int(chooseRow)
             if chooseRow <= 0 or chooseRow > size:
+                print("Please choose a valid number! \n")
+            else:
+                while index >= size:   #to get first row index num
+                    index -= size      
+                index = index + (size * (chooseRow-1))
+                if list[index] == 'x':
+                    print("It's already chosen!\n")
+                elif list[index] != 'x':
+                    p2 += list[index]
+                    p2Score.append(list[index])
+                    list[index] = 'x'
+                    return p2, index, chance
+        except :
+            if chance == 1:
+                if chooseRow == 'shuffle' or chooseRow == 'Shuffle':
+                    random.shuffle(list)
+                    chance -= 1 
+                    return p2, index, chance
+                else:
+                    print('Invalid!')
+            elif chooseRow == "shuffle" or chooseRow == 'Shuffle':
+                print("You can't use shuffle again!")
+            else:
+                print("Invalid!")
+
+def selectColumn(index,list,size,p1,chance,p1Score):
+    print('Now Player1 Turn')
+    while True:
+        chooseColumn = input(f"Enter Column Number 1-{size}: ")
+        try :
+            chooseColumn = int(chooseColumn)
+            if chooseColumn <= 0 or chooseColumn > size:
                 print("Please choose a valid number! \n") 
             else:
                 for x in range(size-1, size*size, size):
@@ -184,22 +195,23 @@ def selectRow(index,list,size,p1,chance):
                         index = x
                         index = index - size
                         break
-                index += chooseRow
+                index += chooseColumn
                 if list[index] == 'x':
                     print("It's already chosen!\n")
                 elif list[index] != 'x':
                     p1 += list[index]
+                    p1Score.append(list[index])
                     list[index] = 'x'
                     return p1, index, chance
         except :
             if chance == 1:
-                if chooseRow == 'shuffle' or chooseRow == 'Shuffle':
+                if chooseColumn == 'shuffle' or chooseColumn == 'Shuffle':
                     random.shuffle(list)
                     chance -= 1 
                     return p1, index, chance
                 else:
                     print('Invalid!')
-            elif chooseRow == "shuffle" or chooseRow == 'Shuffle':
+            elif chooseColumn == "shuffle" or chooseColumn == 'Shuffle':
                 print("You can't use shuffle again!")
             else:
                 print("Invalid!")
