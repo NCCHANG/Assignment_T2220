@@ -164,9 +164,11 @@ def selectColumn(index,list,size,p2,chance):
                     chance -= 1 
                     return p2, index, chance
                 else:
-                    print('Error')
-            else:
+                    print('Invalid!')
+            elif chooseColumn == "shuffle" or chooseColumn == 'Shuffle':
                 print("You can't use shuffle again!")
+            else:
+                print("Invalid!")
 
 def selectRow(index,list,size,p1,chance):
     print('Now Player1 Turn')
@@ -196,9 +198,11 @@ def selectRow(index,list,size,p1,chance):
                     chance -= 1 
                     return p1, index, chance
                 else:
-                    print('Error')
-            else:
+                    print('Invalid!')
+            elif chooseRow == "shuffle" or chooseRow == 'Shuffle':
                 print("You can't use shuffle again!")
+            else:
+                print("Invalid!")
 
 def currentColumn(index,size):
     whichColumn = 0
