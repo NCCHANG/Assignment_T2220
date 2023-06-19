@@ -131,7 +131,6 @@ def checkRow(list, size,condition):
     for column in range(0,len(list),size):
         countX = 0
         for row in range(column, len(list)):
-            print(row)
             if list[row] != 'x':
                 break
             elif list[row] == 'x':
