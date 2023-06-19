@@ -1,6 +1,5 @@
 import random
 import sys
-#shuffle chance
 
 def main():
     randomNum = []
@@ -18,15 +17,14 @@ def main():
     layout(storeIndex,randomNum,GRIDSIZE,False)
     printScore(GRIDSIZE,player1,player2)
     while gameRunning:
-        player2, storeIndex = selectColumn(storeIndex,randomNum,GRIDSIZE,player2)
+        player2, storeIndex, shuffleChanceP2 = selectColumn(storeIndex,randomNum,GRIDSIZE,player2,shuffleChanceP2)
         columnNum(GRIDSIZE)
         layout(storeIndex,randomNum,GRIDSIZE,True)
         printScore(GRIDSIZE,player1,player2)
-        print("-"*GRIDSIZE*7,"\n")
         gameRunning = checkColumn(randomNum,GRIDSIZE,gameRunning)
         gameRunning = checkRow(randomNum,GRIDSIZE,gameRunning)
         if gameRunning == False: break
-        player1, storeIndex = selectRow(storeIndex,randomNum,GRIDSIZE,player1)
+        player1, storeIndex, shuffleChanceP1 = selectRow(storeIndex,randomNum,GRIDSIZE,player1,shuffleChanceP1)
         currentColumn(storeIndex,GRIDSIZE)
         layout(storeIndex,randomNum,GRIDSIZE,False)
         printScore(GRIDSIZE,player1,player2)
@@ -81,10 +79,11 @@ def layout(index,randomNum,size,showRow):
     print("------" * size + '-')
 
 def printScore(size,p1,p2):
-    center = (size * 5) + (size + 1)
-    centerter = center // 2
-    player = (centerter - 12) / 2
-    space = ' ' * int(player)
+    # center = (size * 5) + (size + 1)
+    # centerter = center // 2
+    # player = (centerter - 12) / 2
+    # space = ' ' * int(player)
+    space = ' ' * 5
     print(space+f'Player 1 : {p1}'+space+space+f'Player 2 : {p2}\n')
 
 def askGameStart():
@@ -121,7 +120,8 @@ def checkColumn(list, size,condition):
 def checkRow(list, size,condition):
     for column in range(0,len(list),size):
         countX = 0
-        for row in range(column, column+size):
+        for row in range(column, len(list)):
+            print(row)
             if list[row] != 'x':
                 break
             elif list[row] == 'x':
@@ -130,9 +130,9 @@ def checkRow(list, size,condition):
                     return False
     return condition
 
-def selectColumn(index,list,size,p2):
+def selectColumn(index,list,size,p2,chance):
+    print('Now Player2 Turn')
     while True:
-        print('Now Player2 Turn')
         chooseColumn = input(f"Enter Column Number 1-{size}: ")
         try :
             chooseColumn = int(chooseColumn)
@@ -147,17 +147,21 @@ def selectColumn(index,list,size,p2):
                 elif list[index] != 'x':
                     p2 += list[index]
                     list[index] = 'x'
-                    return p2, index
+                    return p2, index, chance
         except :
-            if chooseColumn == 'shuffle' or chooseColumn == 'Shuffle':
-                random.shuffle(list) 
-                return p2, index
+            if chance == 1:
+                if chooseColumn == 'shuffle' or chooseColumn == 'Shuffle':
+                    random.shuffle(list)
+                    chance -= 1 
+                    return p2, index, chance
+                else:
+                    print('Error')
             else:
-                print('Error')
+                print("You can't use shuffle again!")
 
-def selectRow(index,list,size,p1):
+def selectRow(index,list,size,p1,chance):
+    print('Now Player1 Turn')
     while True:
-        print('Now Player1 Turn')
         chooseRow = input(f"Enter Row Number 1-{size}: ")
         try :
             chooseRow = int(chooseRow)
@@ -175,12 +179,17 @@ def selectRow(index,list,size,p1):
                 elif list[index] != 'x':
                     p1 += list[index]
                     list[index] = 'x'
-                    return p1, index
+                    return p1, index, chance
         except :
-            if chooseRow == 'shuffle' or chooseRow == 'Shuffle':
-                return p1, index
+            if chance == 1:
+                if chooseRow == 'shuffle' or chooseRow == 'Shuffle':
+                    random.shuffle(list)
+                    chance -= 1 
+                    return p1, index, chance
+                else:
+                    print('Error')
             else:
-                print('Error')
+                print("You can't use shuffle again!")
 
 def currentColumn(index,size):
     whichColumn = 0
