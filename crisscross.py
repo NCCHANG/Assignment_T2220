@@ -1,9 +1,23 @@
 import random
 import sys
 
+
+# Course: PSP0101 Problem Solving and Program Design
+# Assignment: Crisscross
+# Session : T2220
+# Lab Class Code: TT1L
+# ID & Name 1:1221105155, LIM WEI JUN
+# Phone,Email:0182127780, 1221105155@student.mmu.edu.my
+
+# Group Leader:
+# Lab Class Code: TT1L
+# ID & Name 1:1221105156, CHANG HOE HIN
+# Phone,Email:0172453131, 1221105156@student.mmu.edu.my
+
 def main():
+    print('LIM WEI JUN, CHANG HOE HIN')
     randomNum = []
-    GRIDSIZE = int(input('Enter Grid Size: ')) #should make a error
+    GRIDSIZE = int(input('Enter Grid Size: '))
     player1,player2 = 0,0
     storeIndex = 0
     gameRunning = True
@@ -15,19 +29,19 @@ def main():
     player1, storeIndex = removeRandom(player1,storeIndex,randomNum)
     currentColumn(storeIndex,GRIDSIZE)
     layout(storeIndex,randomNum,GRIDSIZE,False)
-    printScore(GRIDSIZE,player1,player2)
+    printScore(player1,player2)
     while gameRunning:
         player2, storeIndex, shuffleChanceP2 = selectColumn(storeIndex,randomNum,GRIDSIZE,player2,shuffleChanceP2)
         columnNum(GRIDSIZE)
         layout(storeIndex,randomNum,GRIDSIZE,True)
-        printScore(GRIDSIZE,player1,player2)
+        printScore(player1,player2)
         gameRunning = checkColumn(randomNum,GRIDSIZE,gameRunning)
         gameRunning = checkRow(randomNum,GRIDSIZE,gameRunning)
         if gameRunning == False: break
         player1, storeIndex, shuffleChanceP1 = selectRow(storeIndex,randomNum,GRIDSIZE,player1,shuffleChanceP1)
         currentColumn(storeIndex,GRIDSIZE)
         layout(storeIndex,randomNum,GRIDSIZE,False)
-        printScore(GRIDSIZE,player1,player2)
+        printScore(player1,player2)
         gameRunning = checkColumn(randomNum,GRIDSIZE,gameRunning)
         gameRunning = checkRow(randomNum,GRIDSIZE,gameRunning)
     if player1 > player2:
@@ -78,11 +92,7 @@ def layout(index,randomNum,size,showRow):
         printingRow += 1
     print("------" * size + '-')
 
-def printScore(size,p1,p2):
-    # center = (size * 5) + (size + 1)
-    # centerter = center // 2
-    # player = (centerter - 12) / 2
-    # space = ' ' * int(player)
+def printScore(p1,p2):
     space = ' ' * 5
     print(space+f'Player 1 : {p1}'+space+space+f'Player 2 : {p2}\n')
 
