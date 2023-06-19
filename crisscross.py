@@ -1,8 +1,21 @@
 import random
 import sys
-#shuffle chance
+
+
+# Course: PSP0101 Problem Solving and Program Design
+# Assignment: Crisscross
+# Session : T2220
+# Lab Class Code: TT1L
+# ID & Name 1:1221105155, LIM WEI JUN
+# Phone,Email:0182127780, 1221105155@student.mmu.edu.my
+
+# Group Leader:
+# Lab Class Code: TT1L
+# ID & Name 1:1221105156, CHANG HOE HIN
+# Phone,Email:0172453131, 1221105156@student.mmu.edu.my
 
 def main():
+    print('LIM WEI JUN, CHANG HOE HIN')
     randomNum = []
     GRIDSIZE = int(input('Enter Grid Size: ')) #should make a error
     player1,player2 = 0,0
@@ -18,7 +31,7 @@ def main():
     layout(storeIndex,randomNum,GRIDSIZE,False)
     printScore(GRIDSIZE,player1,player2)
     while gameRunning:
-        player2, storeIndex = selectColumn(storeIndex,randomNum,GRIDSIZE,player2)
+        player2, storeIndex, shuffleChanceP2 = selectColumn(storeIndex,randomNum,GRIDSIZE,player2,shuffleChanceP2)
         columnNum(GRIDSIZE)
         layout(storeIndex,randomNum,GRIDSIZE,True)
         printScore(GRIDSIZE,player1,player2)
@@ -26,7 +39,7 @@ def main():
         gameRunning = checkColumn(randomNum,GRIDSIZE,gameRunning)
         gameRunning = checkRow(randomNum,GRIDSIZE,gameRunning)
         if gameRunning == False: break
-        player1, storeIndex = selectRow(storeIndex,randomNum,GRIDSIZE,player1)
+        player1, storeIndex, shuffleChanceP1 = selectRow(storeIndex,randomNum,GRIDSIZE,player1,shuffleChanceP1)
         currentColumn(storeIndex,GRIDSIZE)
         layout(storeIndex,randomNum,GRIDSIZE,False)
         printScore(GRIDSIZE,player1,player2)
@@ -121,7 +134,8 @@ def checkColumn(list, size,condition):
 def checkRow(list, size,condition):
     for column in range(0,len(list),size):
         countX = 0
-        for row in range(column, column+size):
+        for row in range(column, size):
+            print(row)
             if list[row] != 'x':
                 break
             elif list[row] == 'x':
@@ -130,7 +144,7 @@ def checkRow(list, size,condition):
                     return False
     return condition
 
-def selectColumn(index,list,size,p2):
+def selectColumn(index,list,size,p2,chance):
     while True:
         print('Now Player2 Turn')
         chooseColumn = input(f"Enter Column Number 1-{size}: ")
@@ -147,15 +161,19 @@ def selectColumn(index,list,size,p2):
                 elif list[index] != 'x':
                     p2 += list[index]
                     list[index] = 'x'
-                    return p2, index
+                    return p2, index, chance
         except :
-            if chooseColumn == 'shuffle' or chooseColumn == 'Shuffle':
-                random.shuffle(list) 
-                return p2, index
+            if chance == 1:
+                if chooseColumn == 'shuffle' or chooseColumn == 'Shuffle':
+                    random.shuffle(list)
+                    chance -= 1
+                    return p2, index, chance
+                else:
+                    print('Error')
             else:
-                print('Error')
+                print("Can't use shuffle again")
 
-def selectRow(index,list,size,p1):
+def selectRow(index,list,size,p1,chance):
     while True:
         print('Now Player1 Turn')
         chooseRow = input(f"Enter Row Number 1-{size}: ")
@@ -175,12 +193,17 @@ def selectRow(index,list,size,p1):
                 elif list[index] != 'x':
                     p1 += list[index]
                     list[index] = 'x'
-                    return p1, index
+                    return p1, index, chance
         except :
-            if chooseRow == 'shuffle' or chooseRow == 'Shuffle':
-                return p1, index
+            if chance == 1:
+                if chooseRow == 'shuffle' or chooseRow == 'Shuffle':
+                    random.shuffle(list)
+                    chance -= 1
+                    return p1, index, chance
+                else:
+                    print('Error')
             else:
-                print('Error')
+                print("Can't use shuffle again")
 
 def currentColumn(index,size):
     whichColumn = 0
