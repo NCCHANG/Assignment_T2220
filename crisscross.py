@@ -20,7 +20,7 @@ def main():
     player1Score = []
     player2Score = []
     while True:
-        GRIDSIZE = int(input('Enter Grid Size: '))
+        GRIDSIZE = int(input('Enter Grid Size (2-10): '))
         if GRIDSIZE < 11 and GRIDSIZE > 1:
             break
         else:
